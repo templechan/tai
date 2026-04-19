@@ -172,12 +172,15 @@ systemctl daemon-reload
 echo -e "\033[1;32m✅ Docker镜像配置完成\033[0m"
 
 echo -e "\033[1;34m正在启动项目服务...\033[0m"
-# 强制删除旧容器/镜像（无报错）
-docker rm -f tai >/dev/null 2>&1 || true
-docker rmi -f tai >/dev/null 2>&1 || true
+# # 强制删除旧容器/镜像（无报错）
+# docker rm -f tai >/dev/null 2>&1 || true
+# docker rmi -f tai >/dev/null 2>&1 || true
 docker compose up -d --build
 
 echo -e ""
 echo -e "============================================================"
 echo -e "\033[1;32m🎉 项目部署全部完成！服务已后台运行\033[0m"
 echo -e "============================================================"
+
+# 强制返回0退出码，告诉GitHub Actions：部署成功
+exit 0

@@ -26,24 +26,16 @@ jobs:
               run: ssh-keyscan ${{ secrets.TAI_SERVER_IP }} > ~/.ssh/known_hosts
 
             - name: Deploy to server
-              env:
-                  POSTGRES_DB: ${{ secrets.POSTGRES_DB }}
-                  POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
-                  POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
-                  POSTGRES_HOST: ${{ secrets.POSTGRES_HOST }}
-                  POSTGRES_PORT: ${{ secrets.POSTGRES_PORT }}
-                  DOUBAO_API_KEY: ${{ secrets.DOUBAO_API_KEY }}
-                  QIANWEN_API_KEY: ${{ secrets.QIANWEN_API_KEY }}
               run: |
                   ssh -tt -o StrictHostKeyChecking=no ${{ secrets.TAI_USER }}@${{ secrets.TAI_SERVER_IP }} << 'EOF'
-                  export POSTGRES_DB="${POSTGRES_DB}"
-                  export POSTGRES_USER="${POSTGRES_USER}"
-                  export POSTGRES_PASSWORD="${POSTGRES_PASSWORD}"
-                  export POSTGRES_HOST="${POSTGRES_HOST}" 
-                  export POSTGRES_PORT="${POSTGRES_PORT}"     
-                  export DEEPSEEK_API_KEY="${DEEPSEEK_API_KEY}" 
-                  export DOUBAO_API_KEY="${DOUBAO_API_KEY}" 
-                  export QIANWEN_API_KEY="${QIANWEN_API_KEY}" 
-                  export POSTGRES_URL="${postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${POSTGRES_HOST}:${POSTGRES_PORT}}"
-                  bash ./deploy.sh
+                  export POSTGRES_DB="${{ secrets.POSTGRES_DB }}"
+                  export POSTGRES_USER="${{ secrets.POSTGRES_USER }}"
+                  export POSTGRES_PASSWORD="${{ secrets.POSTGRES_PASSWORD }}"
+                  export POSTGRES_HOST=${{ secrets.POSTGRES_HOST }}
+                  export POSTGRES_PORT=${{ secrets.POSTGRES_PORT }}
+                  export DEEPSEEK_API_KEY="${{ secrets.DEEPSEEK_API_KEY }}"
+                  export DOUBAO_API_KEY="${{ secrets.DOUBAO_API_KEY }}"
+                  export QIANWEN_API_KEY="${{ secrets.QIANWEN_API_KEY }}"
+                  export POSTGRES_URL="postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${POSTGRES_HOST}:${POSTGRES_PORT}"
+                  bash /usr/local/src/tai/deploy.sh
                   EOF

@@ -3,51 +3,36 @@ on:
         branches:
             - main
 
-# 强制使用 Node.js 24，消除警告
-env:
-    FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
-
+# 只有3步：拉代码 → 配置SSH → 连服务器部署，完事！
 jobs:
     deploy:
         runs-on: ubuntu-latest
         steps:
+            # 1. 只需要把代码拉下来，为了读取 deploy.sh 脚本
             - name: Checkout code
               uses: actions/checkout@v6
 
-            - name: Setup Node.js 20
-              uses: actions/setup-node@v4
-              with:
-                  node-version: 20
-
-            # 🔥 修复核心：手动启用 corepack 安装 pnpm（全版本兼容）
-            - name: 安装 pnpm
-              run: |
-                  corepack enable
-                  corepack prepare pnpm@latest --activate
-
+            # 2. 配置SSH密钥（连接你的服务器）
             - name: Install SSH key
               uses: webfactory/ssh-agent@v0.9.1
               with:
                   ssh-private-key: ${{ secrets.TAI_SSH_PRIVATE_KEY }}
 
+            # 3. 信任服务器IP
             - name: Add known hosts
               run: ssh-keyscan ${{ secrets.TAI_SERVER_IP }} > ~/.ssh/known_hosts
 
+            # 4. 直接连接服务器，执行部署！
+            # 全程不在GitHub装任何软件，所有环境都在服务器上
             - name: Deploy to server
               env:
-                  # 数据库配置
                   POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
                   POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
                   POSTGRES_DB: ${{ secrets.POSTGRES_DB }}
-                  POSTGRES_HOST: ${{ secrets.POSTGRES_HOST }}
-                  POSTGRES_PORT: ${{ secrets.POSTGRES_PORT }}
-                  # 正确拼接数据库连接串
-                  POSTGRES_URL: "postgresql://${{ secrets.POSTGRES_USER }}:${{ secrets.POSTGRES_PASSWORD }}@${{ secrets.POSTGRES_HOST }}:${{ secrets.POSTGRES_PORT }}"
-                  # API KEY
+                  POSTGRES_URL: ${{ secrets.POSTGRES_URL }}
                   DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
                   DOUBAO_API_KEY: ${{ secrets.DOUBAO_API_KEY }}
                   QIANWEN_API_KEY: ${{ secrets.QIANWEN_API_KEY }}
-              # 执行部署脚本
               run: |
                   ssh -o StrictHostKeyChecking=no ${{ secrets.TAI_USER }}@${{ secrets.TAI_SERVER_IP }} \
                   "export POSTGRES_USER='$POSTGRES_USER' \

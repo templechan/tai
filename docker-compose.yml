@@ -31,7 +31,7 @@ services:
     db:
         # 官方镜像，内置 pgvector 插件，开箱即用
         image: ankane/pgvector:latest
-        container_name: ankane/pgvector
+        container_name: ankane-pgvector
         restart: always
         # 加载环境变量
         environment:

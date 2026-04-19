@@ -1,29 +1,30 @@
+name: Deploy to Server
+
 on:
     push:
         branches:
             - main
+
+# 强制使用 Node.js 24，消除所有警告
+env:
+    FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
 # 只有3步：拉代码 → 配置SSH → 连服务器部署，完事！
 jobs:
     deploy:
         runs-on: ubuntu-latest
         steps:
-            # 1. 只需要把代码拉下来，为了读取 deploy.sh 脚本
             - name: Checkout code
               uses: actions/checkout@v6
 
-            # 2. 配置SSH密钥（连接你的服务器）
             - name: Install SSH key
               uses: webfactory/ssh-agent@v0.9.1
               with:
                   ssh-private-key: ${{ secrets.TAI_SSH_PRIVATE_KEY }}
 
-            # 3. 信任服务器IP
             - name: Add known hosts
               run: ssh-keyscan ${{ secrets.TAI_SERVER_IP }} > ~/.ssh/known_hosts
 
-            # 4. 直接连接服务器，执行部署！
-            # 全程不在GitHub装任何软件，所有环境都在服务器上
             - name: Deploy to server
               env:
                   POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
@@ -34,7 +35,7 @@ jobs:
                   DOUBAO_API_KEY: ${{ secrets.DOUBAO_API_KEY }}
                   QIANWEN_API_KEY: ${{ secrets.QIANWEN_API_KEY }}
               run: |
-                  ssh -o StrictHostKeyChecking=no -o ServerAliveInterval=30 -o ServerAliveCountMax=10 ${{ secrets.TAI_USER }}@${{ secrets.TAI_SERVER_IP }} \
+                  ssh -o StrictHostKeyChecking=no ${{ secrets.TAI_USER }}@${{ secrets.TAI_SERVER_IP }} \
                   "export POSTGRES_USER='$POSTGRES_USER' \
                   export POSTGRES_PASSWORD='$POSTGRES_PASSWORD' \
                   export POSTGRES_DB='$POSTGRES_DB' \

@@ -1,34 +1,33 @@
 {
-  "compilerOptions": {
-    "target": "ES2017",
-    "lib": ["dom", "dom.iterable", "esnext"],
-    "allowJs": true,
-    "skipLibCheck": true,
-    "strict": true,
-    "noEmit": true,
-    "esModuleInterop": true,
-    "module": "esnext",
-    "moduleResolution": "bundler",
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "jsx": "react-jsx",
-    "incremental": true,
-    "plugins": [
-      {
-        "name": "next"
-      }
-    ],
-    "paths": {
-      "@/*": ["./src/*"]
-    }
-  },
-  "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
-    ".next/types/**/*.ts",
-    ".next/dev/types/**/*.ts",
-    "**/*.mts"
-  ],
-  "exclude": ["node_modules"]
+    "compilerOptions": {
+        "target": "ES2017", // 目标 ECMAScript 版本
+        "lib": ["dom", "dom.iterable", "esnext"], // 包含浏览器环境类型
+        "allowJs": true, // 允许导入 JS 文件
+        "skipLibCheck": true, // 跳过声明文件检查（加速编译）
+        "strict": true, // 启用严格模式
+        "noEmit": true, // 不输出 JS 文件（Next.js 处理）
+        "esModuleInterop": true, // 兼容 CommonJS/ESM
+        "module": "esnext", // 使用最新模块系统
+        "moduleResolution": "bundler", // 现代打包工具解析策略
+        "resolveJsonModule": true, // 允许导入 JSON
+        "isolatedModules": true, // 每个文件独立编译
+        "jsx": "react-jsx", // 使用新的 JSX 转换
+        "incremental": true, // 增量编译（加速）
+        // "noUnusedLocals": true,  // 报告未使用的局部变量
+        // "noUnusedParameters": true,  // 报告未使用的参数
+        // "exactOptionalPropertyTypes": true,  // 严格可选属性类型
+        // "noImplicitReturns": true,  // 确保所有代码路径都有返回值
+        // "noFallthroughCasesInSwitch": true,  // 禁止 switch case 穿透
+        // "forceConsistentCasingInFileNames": true,  // 强制文件名大小写一致
+        "plugins": [
+            {
+                "name": "next"
+            }
+        ],
+        "paths": {
+            "@/*": ["./src/*"]
+        }
+    },
+    "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", ".next/dev/types/**/*.ts", "**/*.mts"],
+    "exclude": ["node_modules"]
 }

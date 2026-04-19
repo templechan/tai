@@ -1,0 +1,50 @@
+# Dependencies
+node_modules
+
+# Build outputs
+.next
+out
+build
+dist
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Environment files
+.env*
+
+# IDE
+.vscode
+.idea
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Generated files
+next-env.d.ts
+*.tsbuildinfo
+
+# Lock files (保持原样)
+pnpm-lock.yaml
+package-lock.json
+yarn.lock
+
+# Public assets (通常不需要格式化)
+public/*.svg
+public/*.png
+public/*.jpg
+
+# 禁止格式化 Markdown 文件
+*.md
+
+# 禁止格式化 shadcn/ui 原子组件
+src/components/ui
+
+tmp

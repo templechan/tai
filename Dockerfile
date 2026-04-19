@@ -11,9 +11,9 @@ RUN sed -i 's/deb.debian.org/mirrors.aliyun.com/g' /etc/apt/sources.list.d/debia
     apt-get update && apt-get install -y --no-install-recommends wget && \
     wget --no-check-certificate https://github.com/microsoft/onnxruntime/releases/download/v1.14.0/onnxruntime-linux-x64-1.14.0.tgz && \
     tar -zxvf onnxruntime-linux-x64-1.14.0.tgz && \
-    cp libonnxruntime-linux-x64-1.14.0/lib/libonnxruntime.so.1.14.0 /usr/local/lib/ && \
+    cp onnxruntime-linux-x64-1.14.0/lib/libonnxruntime.so.1.14.0 /usr/local/lib/ && \
     ldconfig && \
-    rm -rf libonnxruntime-linux-x64-1.14.0* && \
+    rm -rf onnxruntime-linux-x64-1.14.0* && \
     apt-get purge -y wget && apt-get autoremove -y && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 ENV NODE_ENV=production

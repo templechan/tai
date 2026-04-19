@@ -42,7 +42,7 @@ jobs:
                   "export POSTGRES_USER='$POSTGRES_USER' \
                   export POSTGRES_PASSWORD='$POSTGRES_PASSWORD' \
                   export POSTGRES_DB='$POSTGRES_DB' \
-                  export DATABASE_URL='$DATABASE_URL' \
+                  export POSTGRES_URL='$POSTGRES_URL' \
                   export DEEPSEEK_API_KEY='$DEEPSEEK_API_KEY' \
                   export DOUBAO_API_KEY='$DOUBAO_API_KEY' \
                   export QIANWEN_API_KEY='$QIANWEN_API_KEY' \

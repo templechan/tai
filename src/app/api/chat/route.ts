@@ -119,6 +119,7 @@ export const POST = withErrorHandler(async (request: Request): Promise<NextRespo
             "Content-Type": "text/event-stream",
             "Cache-Control": "no-cache",
             Connection: "keep-alive",
+            "X-Accel-Buffering": "no", // 禁用 Nginx 缓冲
         },
     });
 });

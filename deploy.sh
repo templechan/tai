@@ -8,7 +8,7 @@ if ! command -v git &> /dev/null; then
 fi
 
 # 设置 GitHub 国内镜像源
-git config --global url."https://bgithub.xyz/".insteadOf https://github.com/
+# git config --global url."https://bgithub.xyz/".insteadOf https://github.com/
 # 如果失效，则删除旧的，设置的新的，记得先测试下是否有效
 # git config --global --unset url."https://bgithub.xyz/".insteadOf https://github.com/
 # git config --global url."https://kkgithub.com/".insteadOf https://github.com/

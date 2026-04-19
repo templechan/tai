@@ -42,8 +42,8 @@ services:
         volumes:
             - postgres_data:/var/lib/postgresql/data
         # 可选：暴露端口给本地数据库工具连接（调试用）
-        # ports:
-        #   - "5432:5432"
+        ports:
+            - "5432:5432"
         networks:
             - app-network
 # Docker 内部网络（应用和数据库互通）

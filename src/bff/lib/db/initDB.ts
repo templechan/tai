@@ -271,7 +271,13 @@ process.on("SIGTERM", async () => {
 });
 
 //  ========== 数据库初始化统一入口 initDatabase ========== //
-export async function initDatabase(): Promise<typeof dBPools> {
+export async function initDatabase(): Promise<typeof dBPools | undefined> {
+    // 构建阶段直接跳过，不执行任何数据库操作
+    if (process.env.SKIP_DB_INIT) {
+        console.log("[构建模式] 跳过数据库初始化");
+        return;
+    }
+
     try {
         console.log("[数据库初始化] 执行表结构初始化 ...");
         await initDBSchema(); // 先初始化表结构

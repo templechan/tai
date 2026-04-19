@@ -16,6 +16,12 @@ RUN pnpm install --frozen-lockfile
 # 复制项目源码
 COPY . .
 
+# 核心修复：构建时跳过数据库初始化
+ENV SKIP_DB_INIT=true
+
+# 生产环境
+ENV NODE_ENV production
+
 # 构建 Next 项目
 RUN pnpm run build
 

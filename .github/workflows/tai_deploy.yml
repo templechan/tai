@@ -27,7 +27,7 @@ jobs:
 
             - name: Deploy to server
               run: |
-                  ssh -tt -o StrictHostKeyChecking=no ${{ secrets.TAI_USER }}@${{ secrets.TAI_SERVER_IP }} << 'EOF'
+                  ssh -o StrictHostKeyChecking=no ${{ secrets.TAI_USER }}@${{ secrets.TAI_SERVER_IP }} << 'EOF'
                   export POSTGRES_DB="${{ secrets.POSTGRES_DB }}"
                   export POSTGRES_USER="${{ secrets.POSTGRES_USER }}"
                   export POSTGRES_PASSWORD="${{ secrets.POSTGRES_PASSWORD }}"

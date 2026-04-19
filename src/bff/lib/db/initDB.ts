@@ -30,7 +30,8 @@ const DB_POOL_CONFIGS = {
         maxUses: 1000, // 单个连接最多使用1000次（防内存泄漏）
         keepAlive: true, // 开启心跳保活
         keepAliveInitialDelayMillis: 10000, // 10秒发一次心跳
-        ssl: process.env.NODE_ENV === "production" ? { rejectUnauthorized: false } : false,
+        // ssl: process.env.NODE_ENV === "production" ? { rejectUnauthorized: false } : false,
+        ssl: false,
     },
     // 向量库：存储RAG相关向量数据
     tai_rag_db: {
@@ -41,7 +42,8 @@ const DB_POOL_CONFIGS = {
         maxUses: 1000,
         keepAlive: true,
         keepAliveInitialDelayMillis: 10000,
-        ssl: process.env.NODE_ENV === "production" ? { rejectUnauthorized: false } : false,
+        // ssl: process.env.NODE_ENV === "production" ? { rejectUnauthorized: false } : false,
+        ssl: false,
     },
 };
 // 连接池对象，后面会导出给业务使用

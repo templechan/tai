@@ -45,7 +45,6 @@ if [ -d /usr/local/src/tai ] && [ -n "$(ls -A /usr/local/src/tai)" ]; then
     export SHARP_DOWNLOAD_BINARY=true
     pnpm approve-builds --all
     pnpm install --frozen-lockfile
-    export SKIP_DB_INIT=true
     pnpm build
 
     if ! command -v docker &> /dev/null; then

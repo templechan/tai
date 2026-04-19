@@ -4,6 +4,7 @@ import { SupportedModel } from "@/bff/lib/db/modelConfig";
 
 // BFF请求请求默认配置
 export const FETCH_CONFIG = {
+    BFF_API_BASE_URL: process.env.NEXT_PUBLIC_BFF_API_BASE_URL || "",
     TIMEOUT: 600000, // BFF请求默认超时时间
     RETRY_TIMES: 1, // 网络波动重试1次
     PREFIX: "/api", // 接口请求前缀

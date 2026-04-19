@@ -3,7 +3,7 @@
 // ========== React、Next、Utils ========== //
 import { NextResponse } from "next/server";
 import { withErrorHandler } from "@/bff/lib/utils/error-handler";
-import { nextRag } from "@/bff/lib/utils/rag-tool";
+import nextRag from "@/bff/lib/utils/rag-tool";
 import { v4 as uuidv4 } from "uuid";
 // ========== Components、CSS ========== //
 // ========== Icon、Type ========== //

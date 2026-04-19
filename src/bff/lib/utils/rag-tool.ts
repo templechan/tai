@@ -119,7 +119,7 @@ export class NextBffRagTool {
 
     //  全局初始化方法（单例执行）
     //  加载 AI 模型，避免重复初始化
-    private async initialize(): Promise<void> {
+    public async initialize(): Promise<void> {
         if (this.isInitialized) return;
 
         try {
@@ -133,6 +133,11 @@ export class NextBffRagTool {
             console.error("模型初始化失败", error);
             throw new Error(`模型初始化失败: ${(error as Error).message}`);
         }
+    }
+
+    // 预加载快捷方法
+    public async preloadModels(): Promise<void> {
+        await this.initialize();
     }
 
     //  调用数据库连接池
@@ -304,5 +309,5 @@ export class NextBffRagTool {
 //  ========== 单例导出 ========== //
 // 全局单例实例
 // 避免重复加载模型，提升性能
-export const nextRag = new NextBffRagTool();
+const nextRag = new NextBffRagTool();
 export default nextRag;

@@ -14,6 +14,6 @@ import { SupportedModel } from "@/bff/lib/db/modelConfig";
 export const modelService = {
     // 新增：获取模型完整配置（推荐新逻辑使用）
     async getModelConfig(model: SupportedModel): Promise<any> {
-        return (await request(`${process.env.BFF_PUBLIC_API_BASE_URL}${FETCH_CONFIG.BFF_PREFIX}/model?id=${model}`)).json();
+        return (await request(`${FETCH_CONFIG.BFF_API_BASE_URL}${FETCH_CONFIG.BFF_PREFIX}/model?id=${model}`)).json();
     },
 };

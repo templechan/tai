@@ -173,8 +173,8 @@ echo -e "\033[1;32m✅ Docker镜像配置完成\033[0m"
 
 echo -e "\033[1;34m正在启动项目服务...\033[0m"
 # # 强制删除旧容器/镜像（无报错）
-# docker rm -f tai >/dev/null 2>&1 || true
-# docker rmi -f tai >/dev/null 2>&1 || true
+docker rm -f tai >/dev/null 2>&1 || true
+docker rmi -f tai >/dev/null 2>&1 || true
 docker compose up -d --build
 
 echo -e ""

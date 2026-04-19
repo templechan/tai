@@ -6,15 +6,10 @@ COPY ./.next/standalone ./
 COPY ./.next/static ./.next/static
 COPY ./public ./public
 
-# 替换国内阿里云apt源，加速依赖下载
-RUN sed -i 's/deb.debian.org/mirrors.aliyun.com/g' /etc/apt/sources.list.d/debian.sources
-
-# 安装 onnxruntime 所有依赖
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    libgomp1 \
-    libstdc++6 \
-    libssl-dev \
-    && rm -rf /var/lib/apt/lists/*
+# 强制开启 WASM 模式（纯JS运行AI，无系统依赖）
+ENV TRANSFORMERS_WASM=1
+# 禁用原生 onnxruntime 加载
+ENV TRANSFORMERS_NO_LOCAL_RUNTIME=1
 
 ENV NODE_ENV=production
 ENV PORT=91

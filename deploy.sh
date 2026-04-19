@@ -39,10 +39,10 @@ fi
 # 【步骤 3/8】克隆项目代码（核心步骤：失败直接退出）
 # ==============================================
 # 配置GitHub国内加速镜像（解决拉取慢/失败）
-echo -e "\033[1;34m[3/7] 配置镜像并拉取博客代码...\033[0m"
-git config --global url."https://gitclone.com/".insteadOf https://
+# echo -e "\033[1;34m[3/7] 配置镜像并拉取博客代码...\033[0m"
+# git config --global url."https://gitclone.com/".insteadOf https://
 # 如果失效，则删除旧的，设置的新的，记得先测试下是否有效
-# git config --global --unset url."https://bgithub.xyz/".insteadOf https://github.com/
+# git config --global --unset url."https://gitclone.com/".insteadOf https://
 # git config --global url."https://kkgithub.com/".insteadOf https://github.com/
 
 # 核心：克隆代码，失败直接退出脚本，Actions标记部署失败

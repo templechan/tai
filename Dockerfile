@@ -12,11 +12,8 @@ RUN sed -i 's/deb.debian.org/mirrors.aliyun.com/g' /etc/apt/sources.list.d/debia
 # 安装 onnxruntime 所有依赖
 RUN apt-get update && apt-get install -y --no-install-recommends \
     libgomp1 \
-    libssl-dev \
     libstdc++6 \
-    gcc \
-    g++ \
-    make \
+    libssl-dev \
     && rm -rf /var/lib/apt/lists/*
 
 ENV NODE_ENV=production

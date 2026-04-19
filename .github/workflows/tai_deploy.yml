@@ -14,12 +14,13 @@ jobs:
             - name: Checkout code
               uses: actions/checkout@v6
 
-            # pnpm 缓存，构建速度提升10倍
-            - name: Setup pnpm cache
+            # 启用 corepack，自动安装 pnpm，同时开启缓存
+            - name: Setup Node.js & pnpm
               uses: actions/setup-node@v4
               with:
                   node-version: 20
                   cache: "pnpm"
+                  corepack: true # 关键：自动启用 pnpm，解决命令找不到
 
             - name: Install SSH key
               uses: webfactory/ssh-agent@v0.9.1

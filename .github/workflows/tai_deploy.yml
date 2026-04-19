@@ -34,7 +34,7 @@ jobs:
                   DOUBAO_API_KEY: ${{ secrets.DOUBAO_API_KEY }}
                   QIANWEN_API_KEY: ${{ secrets.QIANWEN_API_KEY }}
               run: |
-                  ssh -o StrictHostKeyChecking=no ${{ secrets.TAI_USER }}@${{ secrets.TAI_SERVER_IP }} \
+                  ssh -o StrictHostKeyChecking=no -o ServerAliveInterval=30 -o ServerAliveCountMax=10 ${{ secrets.TAI_USER }}@${{ secrets.TAI_SERVER_IP }} \
                   "export POSTGRES_USER='$POSTGRES_USER' \
                   export POSTGRES_PASSWORD='$POSTGRES_PASSWORD' \
                   export POSTGRES_DB='$POSTGRES_DB' \

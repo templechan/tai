@@ -10,16 +10,18 @@ set -euo pipefail
 
 # 定义固定常量
 readonly PROJECT_DIR="/usr/local/src/tai"
+readonly GIT_REPO_URL="https://github.com/templechan/tai.git"  # 仓库地址
+readonly GIT_BRANCH="main"                    # 部署分支
 readonly NODE_VERSION="v20.18.0"
 readonly NODE_BIN_URL="https://nodejs.org/dist/${NODE_VERSION}/node-${NODE_VERSION}-linux-x64.tar.xz"
 
 # ==============================================
 # 【步骤 1/8】基础环境清理：删除旧项目目录
 # ==============================================
-echo -e "\033[1;34m[1/8] 正在清理旧项目环境...\033[0m"
-cd /usr/local/src
-rm -rf "${PROJECT_DIR}"
-echo -e "\033[1;32m✅ 旧目录清理完成\033[0m"
+echo -e "\033[1;34m[1/8] 初始化项目目录（保留缓存）...\033[0m"
+mkdir -p "${PROJECT_DIR}"
+cd "${PROJECT_DIR}"
+echo -e "\033[1;32m✅ 项目目录准备完成\033[0m"
 
 # ==============================================
 # 【步骤 2/8】安装Git（如未安装）+ 配置用户信息
@@ -45,11 +47,17 @@ git config --global url."https://gh.sevencdn.com/".insteadOf https://
 # 如果失效，则删除旧的，设置的新的，记得先测试下是否有效
 # git config --global --unset url."https://gh.sevencdn.com/".insteadOf https://
 
-# 核心：克隆代码，失败直接退出脚本，Actions标记部署失败
-echo -e "\033[1;34m[3/8] 正在拉取GitHub代码（main分支）...\033[0m"
-if ! git clone -b main https://github.com/templechan/tai.git "${PROJECT_DIR}"; then
-    echo -e "\033[1;31m❌ 代码拉取失败！部署终止\033[0m"
-    exit 1
+# 首次部署=克隆，后续=增量更新
+if [ ! -d ".git" ]; then
+    # 核心：克隆代码，失败直接退出脚本，Actions标记部署失败
+    echo -e "\033[1;34m[3/8] 正在拉取GitHub代码（main分支）...\033[0m"
+    if ! git clone -b "${GIT_BRANCH}" "${GIT_REPO_URL}" "${PROJECT_DIR}"; then
+        echo -e "\033[1;31m❌ 代码拉取失败！部署终止\033[0m"
+        exit 1
+    fi
+else
+    git stash push -m "auto stash"
+    git pull origin main
 fi
 echo -e "\033[1;32m✅ 代码拉取成功\033[0m"
 

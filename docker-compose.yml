@@ -1,5 +1,3 @@
-version: "3.8"
-
 services:
     tai:
         # 等价于 docker build -t tai . （自动构建当前目录的Dockerfile）
@@ -8,8 +6,12 @@ services:
         container_name: tai
         # 开机/崩溃自动重启
         restart: always
-        # 加载环境变量
-        env_file: .env
+        environment:
+            # 直接读取系统环境变量（从 GitHub Secrets 传递过来）
+            - DEEPSEEK_API_KEY=${DEEPSEEK_API_KEY}
+            - DOUBAO_API_KEY=${DOUBAO_API_KEY}
+            - QIANWEN_API_KEY=${QIANWEN_API_KEY}
+            - POSTGRES_URL=${POSTGRES_URL}
         # 等待数据库启动后再启动应用
         depends_on:
             - db
@@ -28,8 +30,11 @@ services:
         container_name: nextbff-ai-assistant-postgres
         restart: always
         # 加载环境变量
-        env_file: .env
-        # 数据库持久化（关键：删除容器数据不丢失）
+        environment:
+            # 直接读取系统环境变量
+            - POSTGRES_USER=${POSTGRES_USER}
+            - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+            - POSTGRES_DB=${POSTGRES_DB}
         volumes:
             - postgres_data:/var/lib/postgresql/data
         # 可选：暴露端口给本地数据库工具连接（调试用）

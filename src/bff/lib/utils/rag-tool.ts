@@ -136,7 +136,7 @@ export class NextBffRagTool {
     }
 
     // 预加载快捷方法
-    public async preloadModels(): Promise<void> {
+    private async preloadModels(): Promise<void> {
         await this.initialize();
     }
 
@@ -310,4 +310,7 @@ export class NextBffRagTool {
 // 全局单例实例
 // 避免重复加载模型，提升性能
 const nextRag = new NextBffRagTool();
+
+nextRag.initialize();
+
 export default nextRag;

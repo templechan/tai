@@ -4,7 +4,6 @@
 
 // ========== React、Next、Utils ========== //
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
-import nextRag from "@/bff/lib/utils/rag-tool";
 // ========== Components、CSS ========== //
 import Sidebar from "@/components/features/sidebar/Sidebar";
 import CommonModal from "@/components/features/common/CommonModal";
@@ -16,16 +15,6 @@ import { useSessionStore } from "@/store/useSessionStore";
 import { useChatStore } from "@/store/useChatStore";
 // ========== Hooks ========== //
 // ========== Services ========== //
-
-// 服务启动后，自动预下载模型
-(async () => {
-    try {
-        // 启动时预加载模型，不阻塞服务
-        await nextRag.preloadModels();
-    } catch (e) {
-        console.error("⚠️ 模型预加载失败，首次调用会自动重试", e);
-    }
-})();
 
 export default function BaseLayout({ children }: Readonly<{ children: React.ReactNode }>) {
     const [autoScroll, setAutoScroll] = useState(true);

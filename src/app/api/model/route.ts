@@ -3,6 +3,8 @@
 // ========== React、Next、Utils ========== //
 // 初始化BFF数据库，只在这里引用一次即可
 import "@/bff/lib/db/initDB";
+// 预下载模型，只在这里引用一次即可
+import "@/bff/lib/utils/rag-tool";
 import { NextResponse } from "next/server";
 import { withErrorHandler } from "@/bff/lib/utils/error-handler";
 // 获取数据库连接池对象

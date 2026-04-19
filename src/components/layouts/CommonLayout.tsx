@@ -17,6 +17,16 @@ import { useChatStore } from "@/store/useChatStore";
 // ========== Hooks ========== //
 // ========== Services ========== //
 
+// 服务启动后，自动预下载模型
+(async () => {
+    try {
+        // 启动时预加载模型，不阻塞服务
+        await nextRag.preloadModels();
+    } catch (e) {
+        console.error("⚠️ 模型预加载失败，首次调用会自动重试", e);
+    }
+})();
+
 export default function BaseLayout({ children }: Readonly<{ children: React.ReactNode }>) {
     const [autoScroll, setAutoScroll] = useState(true);
     // 移动端触摸状态（解决 iOS 滑动冲突）
@@ -30,16 +40,6 @@ export default function BaseLayout({ children }: Readonly<{ children: React.Reac
     const chatContainerRef = useRef<HTMLDivElement>(null);
     const timerRef = useRef<NodeJS.Timeout[]>([]);
     const rafId = useRef<number>(null);
-
-    // 服务启动后，自动预下载模型
-    (async () => {
-        try {
-            // 启动时预加载模型，不阻塞服务
-            await nextRag.preloadModels();
-        } catch (e) {
-            console.error("⚠️ 模型预加载失败，首次调用会自动重试", e);
-        }
-    })();
 
     // 清理所有定时器（防止内存泄漏）
     const clearAllTimers = () => {

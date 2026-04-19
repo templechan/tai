@@ -20,7 +20,7 @@ export const sessionService = {
     async deleteSession(id: string): Promise<any> {
         return (await request(`/session?id=${id}`, { method: "DELETE" })).json();
     },
-    // 更新会话（重命名）
+    // 更新会话 （重命名）
     async updateSession(id: string, data: { title: string }): Promise<any> {
         return (await request(`/session?id=${id}`, { method: "PATCH", body: data })).json();
     },

@@ -6,10 +6,14 @@ COPY ./.next/standalone ./
 COPY ./.next/static ./.next/static
 COPY ./public ./public
 
-# 强制开启 WASM 模式（纯JS运行AI，无系统依赖）
-ENV TRANSFORMERS_WASM=1
-# 禁用原生 onnxruntime 加载
-ENV TRANSFORMERS_NO_LOCAL_RUNTIME=1
+# 安装缺失的 libonnxruntime.so.1.14.0
+RUN apt-get update && apt-get install -y --no-install-recommends wget \
+    && wget https://github.com/microsoft/onnxruntime/releases/download/v1.14.0/libonnxruntime-linux-x64-1.14.0.tgz \
+    && tar -zxvf libonnxruntime-linux-x64-1.14.0.tgz \
+    && cp libonnxruntime-linux-x64-1.14.0/lib/libonnxruntime.so.1.14.0 /usr/local/lib/ \
+    && ldconfig \
+    && rm -rf libonnxruntime-linux-x64-1.14.0* \
+    && apt-get purge -y wget && apt-get autoremove -y && rm -rf /var/lib/apt/lists/*
 
 ENV NODE_ENV=production
 ENV PORT=91

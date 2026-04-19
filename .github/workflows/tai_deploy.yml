@@ -14,6 +14,13 @@ jobs:
             - name: Checkout code
               uses: actions/checkout@v6
 
+            # pnpm 缓存，构建速度提升10倍
+            - name: Setup pnpm cache
+              uses: actions/setup-node@v4
+              with:
+                  node-version: 20
+                  cache: "pnpm"
+
             - name: Install SSH key
               uses: webfactory/ssh-agent@v0.9.1
               with:

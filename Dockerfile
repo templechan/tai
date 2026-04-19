@@ -2,9 +2,9 @@
 FROM node:20-slim
 WORKDIR /app
 
-COPY  ./.next/standalone ./
-COPY  ./.next/static ./.next/static
-COPY  ./public ./public
+COPY ./.next/standalone ./
+COPY ./.next/static ./.next/static
+COPY ./public ./public
 
 # 环境
 ENV NODE_ENV=production

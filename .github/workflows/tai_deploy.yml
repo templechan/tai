@@ -37,4 +37,13 @@ jobs:
                   DOUBAO_API_KEY: ${{ secrets.DOUBAO_API_KEY }}
                   QIANWEN_API_KEY: ${{ secrets.QIANWEN_API_KEY }}
               # 执行部署脚本
-              run: ssh -o StrictHostKeyChecking=no ${{ secrets.TAI_USER }}@${{ secrets.TAI_SERVER_IP }} 'bash -s' < ./deploy.sh
+              run: |
+                  ssh -o StrictHostKeyChecking=no ${{ secrets.TAI_USER }}@${{ secrets.TAI_SERVER_IP }} \
+                  "export POSTGRES_USER='$POSTGRES_USER' \
+                  export POSTGRES_PASSWORD='$POSTGRES_PASSWORD' \
+                  export POSTGRES_DB='$POSTGRES_DB' \
+                  export DATABASE_URL='$DATABASE_URL' \
+                  export DEEPSEEK_API_KEY='$DEEPSEEK_API_KEY' \
+                  export DOUBAO_API_KEY='$DOUBAO_API_KEY' \
+                  export QIANWEN_API_KEY='$QIANWEN_API_KEY' \
+                  && bash -s" < ./deploy.sh

@@ -41,6 +41,7 @@ fi
 # 配置GitHub国内加速镜像（解决拉取慢/失败）
 echo -e "\033[1;34m[3/7] 配置镜像并拉取项目代码...\033[0m"
 git config --global url."https://gh.sevencdn.com/".insteadOf https://
+# git config --global url."https://ghproxy.net/".insteadOf https://
 # 如果失效，则删除旧的，设置的新的，记得先测试下是否有效
 # git config --global --unset url."https://gh.sevencdn.com/".insteadOf https://
 

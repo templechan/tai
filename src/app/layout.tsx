@@ -29,8 +29,8 @@ export const metadata: Metadata = {
     description: "Chat with T.AI – your intelligent assistant for coding, content creation, file reading, and more. Upload documents, engage in long-context conversations, and get expert help in AI, natural language processing, and beyond. | T.AI 助力编程代码开发、创意写作、文件处理等任务，支持文件上传及长文本对话，随时为您提供高效的AI支持。",
     keywords: ["AI", "Assistant", "Next.js", "Chat"],
     icons: {
-        icon: "https://tai.templechann.com/assets/images/logo.png",
-        apple: "https://tai.templechann.com/assets/images/logo.png",
+        icon: "/assets/images/logo.png",
+        apple: "/assets/images/logo.png",
     },
     authors: [{ name: "谌中钱" }],
     creator: "谌中钱",
@@ -48,13 +48,13 @@ export const metadata: Metadata = {
         siteName: "T.AI - AI助手",
         locale: "zh_CN",
         type: "website",
-        images: [{ url: "https://tai.templechann.com/assets/images/logo.png" }],
+        images: "https://tai.templechann.com/assets/images/logo.png",
     },
     twitter: {
         card: "summary_large_image",
         title: "T.AI - AI助手",
         description: "Chat with T.AI – your intelligent assistant for coding, content creation, file reading, and more. Upload documents, engage in long-context conversations, and get expert help in AI, natural language processing, and beyond. | T.AI 助力编程代码开发、创意写作、文件处理等任务，支持文件上传及长文本对话，随时为您提供高效的AI支持。",
-        images: [{ url: "https://tai.templechann.com/assets/images/logo.png" }],
+        images: "https://tai.templechann.com/assets/images/logo.png",
     },
     robots: {
         index: true,

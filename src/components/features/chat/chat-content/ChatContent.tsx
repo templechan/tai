@@ -84,7 +84,7 @@ export default function ChatContent() {
                             {msg.content ? (
                                 <div className="flex items-center gap-3">
                                     <Button size="icon" variant="ghost" className="mt-1 ml-11 h-6 w-6 cursor-pointer rounded-full text-gray-400 hover:bg-gray-100 hover:text-gray-600 active:translate-y-0!" onClick={() => handleCopy(msg.content, `${msg.role}-${index}`)}>
-                                        {copiedId === `${msg.role}-${index}` ? <Check className="h-4 w-4" /> : <Copy className="h-5! w-5!" />}
+                                        {copiedId === `${msg.role}-${index}` ? <Check className="h-5! w-5!" /> : <Copy className="h-5! w-5!" />}
                                     </Button>
                                 </div>
                             ) : (

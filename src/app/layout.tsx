@@ -29,7 +29,7 @@ export const metadata: Metadata = {
     description: "Chat with T.AI – your intelligent assistant for coding, content creation, file reading, and more. Upload documents, engage in long-context conversations, and get expert help in AI, natural language processing, and beyond. | T.AI 助力编程代码开发、创意写作、文件处理等任务，支持文件上传及长文本对话，随时为您提供高效的AI支持。",
     keywords: ["AI", "Assistant", "Next.js", "Chat"],
     icons: {
-        icon: "/assets/images/logo.png",
+        icon: "/assets/favicon.ico",
         apple: "/assets/images/logo.png",
     },
     authors: [{ name: "谌中钱" }],

@@ -17,6 +17,12 @@ import { useChatStore } from "@/store/useChatStore";
 import { sessionService } from "@/services/sessionService";
 import { chatService } from "@/services/chatService";
 
+// 历史对话消息传递给模型的配置
+// 单条消息最大字符数，超长自动截取（可自行调整）
+// 保留的最大历史消息条数（固定10条）
+const MAX_HISTORY_COUNT = 5;
+const MAX_CONTENT_LENGTH = 500;
+
 export const useChat = () => {
     const setCurrentSession = useSessionStore((state) => state.setCurrentSession);
     const isAutoSend = useChatStore((state) => state.isAutoSend);
@@ -120,15 +126,24 @@ export const useChat = () => {
             const chatParams: Chat = {
                 ...chat,
                 id: sessionId,
-                // 转换会话消息为接口要求的格式
+                // 转换会话消息为接口要求的格式 + 限制条数 + 截取长文本
                 chatHistorys:
-                    currentSession?.messages?.map(
-                        (msg) =>
-                            ({
+                    currentSession?.messages
+                        // 1. 只保留【最近10条】消息
+                        ?.slice(-MAX_HISTORY_COUNT)
+                        // 2. 格式化消息 + 超长内容截取
+                        ?.map((msg) => {
+                            // 先去除首尾空格
+                            let content = msg.content.trim();
+                            // 超长截取，末尾加...
+                            if (content.length > MAX_CONTENT_LENGTH) {
+                                content = content.slice(0, MAX_CONTENT_LENGTH) + "...";
+                            }
+                            return {
                                 role: msg.role.trim(),
-                                content: msg.content.trim(),
-                            }) as ChatHistory,
-                    ) || [],
+                                content: content,
+                            } as ChatHistory;
+                        }) || [],
                 // 判断是否有文档关联的历史消息
                 hasDocHistorys: !!currentSession?.messages?.some((item) => item.docs?.length > 0),
             };

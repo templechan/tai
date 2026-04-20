@@ -7,8 +7,7 @@ COPY ./.next/static ./.next/static
 COPY ./public ./public
 
 # 安装缺失的onnx运行库
-RUN sed -i "s@http://deb.debian.org@https://mirrors.aliyun.com@g" /etc/apt/sources.list && \
-    apt-get update && apt-get install -y --no-install-recommends wget && \
+RUN sed -i "s@deb.debian.org@mirrors.aliyun.com@g" /etc/apt/sources.list.d/debian.sources && \
     wget --no-check-certificate https://ghproxy.net/https://github.com/microsoft/onnxruntime/releases/download/v1.14.0/onnxruntime-linux-x64-1.14.0.tgz && \
     tar -zxvf onnxruntime-linux-x64-1.14.0.tgz && \
     cp onnxruntime-linux-x64-1.14.0/lib/libonnxruntime.so.1.14.0 /usr/local/lib/ && \

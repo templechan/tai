@@ -102,60 +102,6 @@
 
 > 本项目采用的技术点版本，除了兼容性考虑外，都采用最新版，使用 pnpm-lock.yaml 保证协同一致性。
 
-<style>
-/* 外层容器：移动端 100% 触发横向滚动 */
-.table-wrapper {
-  width: 100% !important;
-  max-width: 100% !important;
-  overflow-x: auto !important;
-  overflow-y: hidden !important;
-  margin: 12px 0 !important;
-  -webkit-overflow-scrolling: touch !important;
-  display: block !important;
-}
-
-/* 表格本体：紧凑样式 + 强制最小宽度触发滚动 */
-.markdown-table {
-  width: 100% !important;
-  min-width: 700px !important;
-  border-collapse: collapse !important;
-  border-spacing: 0 !important;
-  font-size: 14px !important;
-  line-height: 1.4 !important; /* 恢复紧凑行高 */
-  border-radius: 6px !important;
-}
-
-.markdown-table th,
-.markdown-table td {
-  padding: 8px 12px !important; /* 恢复紧凑内边距 */
-  border: 1px solid #e8ebee !important;
-  text-align: left !important;
-  word-break: break-word !important;
-  white-space: normal !important;
-  background: transparent !important;
-  color: #333 !important;
-}
-
-/* 第一列：最小5个汉字，固定宽度 */
-.markdown-table td:first-child,
-.markdown-table th:first-child {
-  min-width: 80px !important;
-  width: 80px !important;
-  white-space: nowrap !important;
-}
-
-.markdown-table th {
-  background: #f7f8fa !important;
-  font-weight: 600 !important;
-}
-.markdown-table tr:nth-child(even) {
-  background: #fcfdff !important;
-}
-.markdown-table tr:hover {
-  background: #f2f5f9 !important;
-}
-</style>
-
 <div class="table-wrapper">
 <table class="markdown-table">
   <thead>

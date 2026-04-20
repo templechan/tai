@@ -177,7 +177,7 @@ export class NextBffRagTool {
 
         const client = await this.getDatabaseClient();
         try {
-            const values = chunks.map((chunk, index) => [uuidv4(), `[${vectors[index].join(",")}]`, JSON.stringify({ sessionId, text: chunk })]);
+            const values = chunks.map((chunk, index) => [uuidv4(), `[${vectors[index].join(",")}]`, JSON.stringify({ sessionId, text: chunk, chunkIndex: index })]);
             const query = `
                 INSERT INTO rag_vectors (id, vector, metadata)
                 VALUES ${values.map((_, i) => `($${i * 3 + 1}, $${i * 3 + 2}::vector, $${i * 3 + 3}::jsonb)`).join(", ")}
@@ -220,20 +220,23 @@ export class NextBffRagTool {
         try {
             const res = await client.query(
                 `
-                    SELECT metadata->>'text' AS text
+                    SELECT
+                        metadata->>'text' AS text,
+                        CAST(metadata->>'chunkIndex' AS INTEGER) AS chunk_index
                     FROM rag_vectors
                     WHERE metadata->>'sessionId' = $1
                     ORDER BY vector <-> $2::vector
                     LIMIT $3
                 `,
-                [sessionId, `[${queryVector.join(",")}]`, topK * 2],
+                [sessionId, `[${queryVector.join(",")}]`, topK * 3],
             );
 
             return (
                 res.rows
+                    .sort((a, b) => a.chunk_index - b.chunk_index)
                     .map((row) => row.text)
                     .filter(Boolean)
-                    .slice(0, topK) || []
+                    .slice(0, topK * 3) || []
             );
         } finally {
             // 关键：无论成功/失败，都释放连接
